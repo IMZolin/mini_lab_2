@@ -1,13 +1,13 @@
-import {setFormValue, submitSignUpForm, validateEmail, validatePassword} from "./utils.js"
+import {setFormValue, submitSignUpForm, validateEmail, validateName, validatePassword} from "./utils.js"
 
 
 ////// ДЕМОНСТРАЦИОННЫЙ УЧАСТОК КОДА. На оценку не влияет, исключительно для саморазвития.
 
 // Предлагаю "поиграться" с частями кода ниже, чтобы познакомиться с JS
 // Получаем элемент и меняем его класс, который определеён в библиотеке стилей materialize
-const password = document.getElementById('password');
-password.classList.add("valid")
-password.classList.remove("valid")
+// const password = document.getElementById('password');
+// password.classList.add("valid")
+// password.classList.remove("valid")
 
 // В браузере можно посмотреть, что из себя представляет документ
 // (CTRL+SHIFT+i для открытия консоли и открыть вкладку "консоль", туда будет залогированно значение)
@@ -43,14 +43,23 @@ const sign_up_btn_id = 'sign_up_btn'
 const sign_in_form_id = 'sign_in_form'
 
 
+
 // Получаем элемент DOM-дерева по id и присваиваем значение аттрибуту oninput
 // oninput вызывается с параметром "event" каждый раз, когда ввод меняется
 // Значение, которое мы присваеваем этому аттрибуту - это функция, определённая в стрелочном стиле
 // Гуглить по тегам "события JS", "onchange/oninput HTML", "стрелочные функции JS", ...
 
-const first_name = document.getElementById(first_name_id);
-first_name.oninput = (e) => setFormValue(first_name_id, e.target.value)  // Установить значение без валидации
-
+// //1-st and last names
+// const first_name = document.getElementById(first_name_id);
+// first_name.oninput = (e) => setFormValue(first_name_id, e.target.value, validateName)  // Установить значение без валидации
+// const last_name = document.getElementById(last_name_id);
+// last_name.oninput = (e) => setFormValue(last_name_id, e.target.value, validateName)
+//password
+const password = document.getElementById(password_id);
+password.oninput = (e) => setFormValue(password_id, e.target.value, validatePassword(password))
+if(!password.classList.contains("valid"))
+  password.style.borderBottom = "1px solid red";
+//email
 const email = document.getElementById(email_id);
 email.oninput = (e) => setFormValue(email_id, e.target.value, validateEmail) // Установить значение с валидацией
 
