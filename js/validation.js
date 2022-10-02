@@ -13,34 +13,22 @@ let names = document.querySelectorAll('.name'),
     password2 = document.getElementById('password2'),
     errorMsg2 = document.querySelectorAll(".error2");
 
-sign_in.onclick= function (e)
-{
-    sign_in_form.style.display = 'block';
-    sign_up_form.style.display = 'none';
-    email2.oninput = (e) => validateEmail(email2,errorMsg2[0]);
-    password2.oninput = (e) => validateFirstPassword(password2, errorMsg2[1]);
-    document.querySelector('form > div > div > input').onblur = function(e)
-    {
-        e.preventDefault();
-        buttonController(sign_in_btn);
-    }
-}
-const validateEmail =(email, error_msg)=>{
+
+const validateEmail =(email, error_msg,btn,param)=>{
     let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         msg_email = "Enter valid email";
     if(!regEmail.test(email.value)) {
         email.style.borderBottom = "1px solid #A7171A";
         error_msg.innerHTML = msg_email;
-        return false;
     }
     else{
         email.style.borderBottom = "1px solid #71C562";
         error_msg.innerHTML = "";
-        email.classList.add("valid")
-        return true;
+        email.classList.add("valid");
+        buttonController(btn,param);
     }
 }
-const validateName =(names)=>{
+const validateName =(names,btn,param)=>{
     let regName = /[A-Za-zА-Яа-я]/,
         msg_name = "Enter valid First name",
         msg_lastname = "Enter valid Last Name";
@@ -53,10 +41,11 @@ const validateName =(names)=>{
     {
         names[0].style.borderBottom = "1px solid #71C562";
         errorMsg[0].innerHTML = "";
-        names[0].classList.add("valid")
+        names[0].classList.add("valid");
+        buttonController(btn,param);
     }
 }
-const validateLastName =(names)=>{
+const validateLastName =(names,btn,param)=>{
     let regName = /[A-Za-zА-Яа-я]/,
         msg_name = "Enter valid First name",
         msg_lastname = "Enter valid Last Name";
@@ -69,10 +58,11 @@ const validateLastName =(names)=>{
     {
         names[1].style.borderBottom = "1px solid #71C562";
         errorMsg[1].innerHTML = "";
-        names[1].classList.add("valid")
+        names[1].classList.add("valid");
+        buttonController(btn,param);
     }
 }
-const validateFirstPassword =(password, error_msg)=>{
+const validateFirstPassword =(password, error_msg,btn,param)=>{
     let regPassword = /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d).*$/,
         msg_password ="Enter valid password.\n The password must contain letters, numbers and must be at least 8 in length.";
     if (!regPassword.test(password.value)) {
@@ -82,9 +72,10 @@ const validateFirstPassword =(password, error_msg)=>{
         password.style.borderBottom = "1px solid #71C562";
         error_msg.innerHTML = "";
         password.classList.add("valid")
+        buttonController(btn,param);
     }
 }
-const validateMatchingPassword =(rep_password)=>{
+const validateMatchingPassword =(rep_password,btn,param)=>{
     let msg_repeat_password ="Passwords don't match";
     if ((rep_password.value !== password.value)) {
         rep_password.style.borderBottom = "1px solid #A7171A";
@@ -93,26 +84,53 @@ const validateMatchingPassword =(rep_password)=>{
         rep_password.style.borderBottom = "1px solid #71C562";
         errorMsg[4].innerHTML = "";
         rep_password.classList.add("valid")
+        buttonController(btn,param);
     }
 }
-const buttonController =(btn)=> {
-    if(names[0].classList.contains('valid')& names[1].classList.contains('valid') &email.classList.contains('valid')& passwords[0].classList.contains('valid') & passwords[1].classList.contains('valid'))
+const buttonController =(btn,param)=> {
+    console.log(param);
+    if(param ==='sign_in'){
+        if(email2.classList.contains('valid') & password2.classList.contains('valid')) {
+            console.log("yes!");
+            btn.disabled = false;
+        } else {
+            console.log("no");
+        }
+    }
+    else
     {
-        console.log("yes!");
-        btn.disabled = false;
+        if(names[0].classList.contains('valid')& names[1].classList.contains('valid') &email.classList.contains('valid')& passwords[0].classList.contains('valid') & passwords[1].classList.contains('valid'))
+        {
+            console.log("yes!");
+            btn.disabled = false;
+        }
+        else{
+            console.log("no");
+        }
     }
-    else{
-        console.log("no");
-    }
-}
-names[0].oninput = (e) => validateName(names);
-names[1].oninput = (e) => validateLastName(names);
-email.oninput = (e) => validateEmail(email, errorMsg[2]);
-password.oninput = (e) => validateFirstPassword(password, errorMsg[3]);
-rep_password.oninput = (e) => validateMatchingPassword(rep_password);
 
-document.querySelector('form > div > div > input').onblur = function(e)
+
+}
+names[0].oninput = (e) => validateName(names,sign_up_btn,'sign_up');
+names[1].oninput = (e) => validateLastName(names,sign_up_btn,'sign_up');
+email.oninput = (e) => validateEmail(email, errorMsg[2],sign_up_btn,'sign_up');
+password.oninput = (e) => validateFirstPassword(password, errorMsg[3],sign_up_btn,'sign_up');
+rep_password.oninput = (e) => validateMatchingPassword(rep_password,sign_up_btn,'sign_up');
+//
+// document.querySelector('form > div > div > input').onblur = function(e)
+// {
+//     e.preventDefault();
+//     buttonController(sign_up_btn);
+// }
+sign_in.onclick= function (e)
 {
-    e.preventDefault();
-    buttonController(sign_up_btn);
+    sign_in_form.style.display = 'block';
+    sign_up_form.style.display = 'none';
+    email2.oninput = (e) => validateEmail(email2,errorMsg2[0],sign_in_btn,'sign_in');
+    password2.oninput = (e) => validateFirstPassword(password2, errorMsg2[1],sign_in_btn,'sign_in');
+    // document.querySelector('form > div > div > input').onblur = function(e)
+    // {
+    //     e.preventDefault();
+    //     buttonController(sign_in_btn);
+    // }
 }
