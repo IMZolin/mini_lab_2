@@ -5,14 +5,13 @@ let names = document.querySelectorAll('.name'),
     email = document.querySelector('.email'),
     errorMsg = document.querySelectorAll(".error"),
     sign_up_btn = document.getElementById("sign_up_btn"),
-    sign_in_btn = document.getElementById("sign_up_btn"),
+    sign_in_btn = document.getElementById("sign_in_btn"),
     sign_in = document.querySelector('#sign_in_link'),
     sign_in_form = document.querySelector("#sign_in_form"),
     sign_up_form = document.querySelector("#sign_up_form"),
     email2 = document.getElementById('email2'),
     password2 = document.getElementById('password2'),
     errorMsg2 = document.querySelectorAll(".error2");
-
 
 const validateEmail =(email, error_msg,btn,param)=>{
     let regEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
@@ -108,29 +107,16 @@ const buttonController =(btn,param)=> {
             console.log("no");
         }
     }
-
-
 }
 names[0].oninput = (e) => validateName(names,sign_up_btn,'sign_up');
 names[1].oninput = (e) => validateLastName(names,sign_up_btn,'sign_up');
 email.oninput = (e) => validateEmail(email, errorMsg[2],sign_up_btn,'sign_up');
 password.oninput = (e) => validateFirstPassword(password, errorMsg[3],sign_up_btn,'sign_up');
 rep_password.oninput = (e) => validateMatchingPassword(rep_password,sign_up_btn,'sign_up');
-//
-// document.querySelector('form > div > div > input').onblur = function(e)
-// {
-//     e.preventDefault();
-//     buttonController(sign_up_btn);
-// }
 sign_in.onclick= function (e)
 {
     sign_in_form.style.display = 'block';
     sign_up_form.style.display = 'none';
     email2.oninput = (e) => validateEmail(email2,errorMsg2[0],sign_in_btn,'sign_in');
     password2.oninput = (e) => validateFirstPassword(password2, errorMsg2[1],sign_in_btn,'sign_in');
-    // document.querySelector('form > div > div > input').onblur = function(e)
-    // {
-    //     e.preventDefault();
-    //     buttonController(sign_in_btn);
-    // }
 }
