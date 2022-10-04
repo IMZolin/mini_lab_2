@@ -16,7 +16,11 @@
   text-transform: uppercase;
 }
 
+
 /* Свойства цкласса при наведении */
 .underlined_text:hover {
   cursor: pointer;
+}
+.error,.error2{
+  color:#A7171A;
 }
