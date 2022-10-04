@@ -1,5 +1,5 @@
 .form_container {
-  width: 50%;
+  width: 100%;
   height: fit-content;
   padding: 5% 5% 0 5%;
   margin-top: 2%;
@@ -15,11 +15,12 @@
   text-decoration-color: #76ead5;
   text-transform: uppercase;
 }
-
-
 /* Свойства цкласса при наведении */
 .underlined_text:hover {
   cursor: pointer;
+}
+#sign_in_link{
+  text-align: right;
 }
 .error,.error2{
   color:#A7171A;

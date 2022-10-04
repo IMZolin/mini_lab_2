@@ -174,9 +174,11 @@ textarea {
    These examples override the primary ('mobile first') styles.
    Modify as content requires.
    ========================================================================== */
-
-@media only screen and (min-width: 35em) {
+@media only screen and (max-height: 768px) {
   /* Style adjustments for viewports that meet the condition */
+  .container {
+    height: 80%;
+  }
 }
 
 @media print,
